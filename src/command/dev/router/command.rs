@@ -83,7 +83,7 @@ impl BackgroundTask {
 
         if let Some(stdout) = child.stdout.take() {
             let log_sender = log_sender.clone();
-            rayon::spawn(move || {
+            std::thread::spawn(move || {
                 let stdout = BufReader::new(stdout);
                 stdout.lines().for_each(|line| {
                     if let Ok(line) = line {
@@ -96,7 +96,7 @@ impl BackgroundTask {
         }
 
         if let Some(stderr) = child.stderr.take() {
-            rayon::spawn(move || {
+            std::thread::spawn(move || {
                 let stderr = BufReader::new(stderr);
                 stderr.lines().for_each(|line| {
                     if let Ok(line) = line {

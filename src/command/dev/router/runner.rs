@@ -180,7 +180,7 @@ impl RouterRunner {
             let warn_prefix = Style::WarningPrefix.paint("WARN:");
             let error_prefix = Style::ErrorPrefix.paint("ERROR:");
             let unknown_prefix = Style::ErrorPrefix.paint("UNKNOWN:");
-            rayon::spawn(move || loop {
+            std::thread::spawn(move || loop {
                 let log = match router_log_receiver.recv() {
                     Ok(log) => log,
                     Err(_) => continue,
